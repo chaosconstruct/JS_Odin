@@ -1,5 +1,13 @@
 
+let humanScore = 0;
+let computerScore = 0 ;
+let round = 0;
 
+const container = document.querySelector(".container");
+const content = document.createElement("div");
+content.classList.add("content");
+content.textContent = "Score"+" "+humanScore+" "+"and"+" "+computerScore;
+container.appendChild(content);
 
 function getComputerChoice(){
     let a = Math.floor(Math.random()*3) ;
@@ -17,21 +25,9 @@ function getComputerChoice(){
 }
 
 
-function getHumanChoice(){
-    let num = prompt("What's your play, select between Rock, Paper, Scissor?");
-    return num.toLowerCase();
-}
-
-
-let humanScore = 0;
-let computerScore = 0 ;
-
-const humanSelection = getHumanChoice();
-const computerselection = getComputerChoice();
-
-
-function playRound(humanChoice,computerChoice){
-    
+function playRound(hc,cc){
+    const humanChoice = hc;
+    const computerChoice = cc;
     let a;
     if (humanChoice === "paper" && computerChoice === "rock"){
         a = "You win, paper beats rocks";
@@ -55,23 +51,27 @@ function playRound(humanChoice,computerChoice){
         a = "Tie"
     }
     
-    return{humanScore, computerScore};
+    console.log({humanScore, computerScore});
+    updateScore();
 
 }
 
+const btn = document.querySelector("#btn");
+btn.onclick = () => playRound("rock",getComputerChoice());
 
-//console.log(humanScore)
-//console.log(playRound(humanSelection,computerselection));
+const btn2 = document.querySelector("#btn2");
+btn2.onclick = () => playRound("paper",getComputerChoice());
 
- function playGame(){
-     for (let index = 0; index < 5; index++) {
-         const humanSelection = getHumanChoice();
-         const computerselection = getComputerChoice();
-         playRound(humanSelection,computerselection);
-        
-     }
-     return {humanScore, computerScore};
- }
+const btn3 = document.querySelector("#btn3");
+btn3.onclick = () => playRound("scissor",getComputerChoice());
+updateScore();
 
 
- console.log(playGame());
+function updateScore(){
+
+const container = document.querySelector(".content");
+content.textContent = "Score"+" "+humanScore+" "+"and"+" "+computerScore+" "+ "Round"+ " " + round;
+round+=1;
+}
+
+
